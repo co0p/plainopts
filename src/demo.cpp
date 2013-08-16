@@ -1,8 +1,11 @@
+#include <iostream>
+#include "../src/plainopts.h"
 
-#include <stdio.h>
+using namespace plainopts;
 
-int main(int argc, char const *argv[])
-{
-    printf("demo\n");
-    return 0;
+int main(int argc, char const *argv[]) {
+    
+  // todo
+  
+  return 0;
 }
