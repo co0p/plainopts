@@ -9,10 +9,11 @@ Usage
 -----
 
 The idea is simple:
-1. create an plainopts object 
-2. tell plainopts about flags, options and supported arguments
-3. parse argv
-4. react
+
+1.  create an plainopts object 
+2.  tell plainopts about flags, options and supported arguments
+3.  parse argv
+4.  react
 
 This is an example usage case:
 
