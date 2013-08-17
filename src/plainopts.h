@@ -2,7 +2,10 @@
 #define PLAINOPTS 1
 
 #include <string>
+#include <iostream>
 #include <sstream>
+#include <map>
+#include <set>
 
 using namespace std;
 
@@ -86,6 +89,65 @@ namespace plainopts {
       return returnValue;
     }
 
+  };
+
+
+
+  /*****************************************************************************
+  * This is the container for the flag and options
+  */
+  class Plainopts {
+
+  private:
+    map<string, Flag*> available_entries;
+    set<string> defined_flags;
+
+    bool is_available(string key) {
+      return available_entries.count(key) > 0;
+    }
+
+
+
+  public:
+    Plainopts() { }
+
+    /// adds a new flag option to the internal datastructures using the key
+    void add_flag(char sName, string lName) {
+
+      // don't allow empty names
+      if (sName == '\0' && lName == "") { return; }
+
+      Flag *new_flag = new Flag(sName, lName);
+      string key;
+
+      // add with short name if not empty
+      if (sName != '\0') {
+        key = sName;
+        available_entries.insert(pair<string, Flag*>(key, new_flag));
+      }
+
+      // add with long name if not empty
+      if (lName != "") {
+        key = lName;
+        available_entries.insert(pair<string, Flag*>(key, new_flag));
+      }
+    }
+
+    ///  sets the help text on the object with long name as a key
+    void set_help(string key, string text) {
+      map<string, Flag*>::iterator it;
+      if (is_available(key)) {
+        it = available_entries.find(key);
+        (*it).second->set_help(text);
+      }
+    }
+
+    /// sets the help text on the object with short name as a key
+    void set_help(char key, string text) {
+      string keyAsString;
+      keyAsString = key;
+      set_help(keyAsString, text);
+    }
   };
 
 } /* namespace */
