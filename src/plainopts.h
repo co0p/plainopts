@@ -12,7 +12,7 @@ using namespace std;
 
 namespace plainopts {
 
-  enum Settings { OPTIONAL=0, MANDATORY=1 };
+  enum Settings {ERROR, VALID, MISSING, HELP};
 
   /*****************************************************************************
   * A Flag contains no value and is always optional.
@@ -110,6 +110,15 @@ namespace plainopts {
 
   public:
     Plainopts() { }
+
+    int parse(int argc, char *argv[]) {
+
+      return VALID;
+    }
+
+    const string last_error() { return "abc"; }
+    const string missing_entry() { return "abc"; }
+    const string help() { return "help"; }
 
     /// adds a new flag option to the internal datastructures using the key
     void add_flag(char sName, string lName) {
